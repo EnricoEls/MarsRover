@@ -18,7 +18,7 @@ namespace MarsRover.App
 
             while(!String.IsNullOrWhiteSpace(instructionLine = instructionFile.ReadLine()))
             {
-                returnLineList.Add(RemoveAllSpaces(instructionLine));
+                returnLineList.Add(instructionLine.Trim());
             }
 
             instructionFile.Close();

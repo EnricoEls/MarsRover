@@ -57,6 +57,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RoverLogic.cs" />
+    <Compile Include="Tests\RoverLogicTests.cs" />
     <Compile Include="Tests\TextFileTests.cs" />
     <Compile Include="TextHelper.cs" />
   </ItemGroup>
