@@ -13,3 +13,4 @@ C:\Users\Enrico Els\source\repos\Next45\MarsRover\MarsRover.App\bin\Debug\nunit.
 C:\Users\Enrico Els\source\repos\Next45\MarsRover\MarsRover.App\obj\Debug\MarsRover.App.csproj.CoreCompileInputs.cache
 C:\Users\Enrico Els\source\repos\Next45\MarsRover\MarsRover.App\obj\Debug\MarsRover.App.exe
 C:\Users\Enrico Els\source\repos\Next45\MarsRover\MarsRover.App\obj\Debug\MarsRover.App.pdb
+C:\Users\Enrico Els\source\repos\Next45\MarsRover\MarsRover.App\obj\Debug\MarsRover.App.csprojResolveAssemblyReference.cache
