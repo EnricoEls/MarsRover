@@ -11,14 +11,14 @@ namespace MarsRover.App.Tests
     class TextFileTests
     {
         [Test]
-        public void Given_Textfile_ShouldBeAbleToReadFile()
+        public void Given_Textfile_Should_BeAbleToReadFile()
         {
             var textLines = TextHelper.ReadTextFile();
             Assert.That(textLines.Count(), Is.GreaterThan(0));
         }
 
         [Test]
-        public void Given_StringWithSpases()
+        public void Given_StringWithSpases_Should_ReturnStringWithoutSpaces()
         {
             string inputString = "This Is A Spaced Out String";
 
