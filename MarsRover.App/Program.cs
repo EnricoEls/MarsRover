@@ -95,6 +95,17 @@ namespace MarsRover.App
 
             Console.WriteLine(result);
             Console.WriteLine("");
+
+            if (roverLogic.UnknownInstructions.Any())
+            {
+                Console.WriteLine("The following instructions could not be computed:");
+                foreach (var unknownInstruction in roverLogic.UnknownInstructions)
+                {
+                    Console.WriteLine(unknownInstruction);
+                }
+                Console.WriteLine("");
+            }
+
             CallInstructions();
         }
     }
