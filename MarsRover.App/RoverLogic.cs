@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Int32;
 
 namespace MarsRover.App
 {
@@ -10,16 +11,21 @@ namespace MarsRover.App
     {
         public RoverLogic(List<string> listOfinstructions)
         {
-            var girdSplit = listOfinstructions[0].Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries).ToArray();
-            XMax = Int32.Parse(girdSplit[0]);
-            YMax = Int32.Parse(girdSplit[1]);
 
-            var locationSplit = listOfinstructions[1].Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries).ToArray();
-            X = Int32.Parse(locationSplit[0]);
-            Y = Int32.Parse(locationSplit[1]);
+            var girdSplit =
+                listOfinstructions[0].Split(new string[] {" "}, StringSplitOptions.RemoveEmptyEntries).ToArray();
+            XMax = Parse(girdSplit[0]);
+            YMax = Parse(girdSplit[1]);
+
+            var locationSplit =
+                listOfinstructions[1].Split(new string[] {" "}, StringSplitOptions.RemoveEmptyEntries).ToArray();
+            X = Parse(locationSplit[0]);
+            Y = Parse(locationSplit[1]);
             D = locationSplit[2];
 
-            Instructions = listOfinstructions[2].Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries).ToList();
+            Instructions = listOfinstructions[2].ToCharArray().ToList();
+            UnknownInstructions = new List<string>();
+
         }
 
         public int XMax { get; internal set; }
@@ -27,7 +33,8 @@ namespace MarsRover.App
         public int X { get; internal set; }
         public int Y { get; internal set; }
         public string D { get; internal set; }
-        public List<string> Instructions { get; internal set; }
+        public List<char> Instructions { get; internal set; }
+        public List<string> UnknownInstructions { get; internal set; } 
 
         public void ExecuteMovementCommand(string instruction)
         {
@@ -57,8 +64,7 @@ namespace MarsRover.App
                         }
                 }
             }
-
-            if (instruction == "L")
+            else if (instruction == "L")
             {
                 switch (D)
                 {
@@ -69,7 +75,7 @@ namespace MarsRover.App
                         }
                     case "E":
                         {
-                            D = "S";
+                            D = "N";
                             break;
                         }
                     case "S":
@@ -79,13 +85,12 @@ namespace MarsRover.App
                         }
                     case "W":
                         {
-                            D = "N";
+                            D = "S";
                             break;
                         }
                 }
             }
-
-            if (instruction == "R")
+            else if (instruction == "R")
             {
                 switch (D)
                 {
@@ -111,16 +116,38 @@ namespace MarsRover.App
                         }
                 }
             }
+            else
+            {
+                UnknownInstructions.Add(instruction);
+            }
         }
 
         public string Execute()
         {
-            foreach(var instruction in Instructions)
+            if (!IsInBounds())
             {
-                ExecuteMovementCommand(instruction);
+                return $"Rover moved out of grid at point 8 8 \n End position {X} {Y} {D}";
+            }
+
+            foreach (var instruction in Instructions)
+            {
+                ExecuteMovementCommand(instruction.ToString());
+
+                if (!IsInBounds())
+                {
+                    return $"Rover moved out of grid at point 8 8 \n End position {X} {Y} {D}";
+                }
             }
 
             return $"{X} {Y} {D}";
+        }
+
+        public bool IsInBounds()
+        {
+            var xInBounds = X >= 0 && X <= XMax;
+            var yInBounds = Y >= 0 && Y <= YMax;
+
+            return xInBounds && yInBounds;
         }
     }
 }

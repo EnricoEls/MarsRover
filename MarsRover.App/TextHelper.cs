@@ -9,12 +9,13 @@ namespace MarsRover.App
 {
     public class TextHelper
     {
-        public static List<string> ReadTextFile()
+        public static List<string> ReadTextFile(string fileLocation)
         {
+            fileLocation = CorrectStringAsNeeded(fileLocation);
             var instructionLine = String.Empty;
             var returnLineList = new List<string>();
 
-            System.IO.StreamReader instructionFile = new System.IO.StreamReader("testFile1.txt");
+            System.IO.StreamReader instructionFile = new System.IO.StreamReader(fileLocation);
 
             while(!String.IsNullOrWhiteSpace(instructionLine = instructionFile.ReadLine()))
             {
@@ -25,13 +26,17 @@ namespace MarsRover.App
             return returnLineList;
         }
 
-        public static string RemoveAllSpaces(string inputString)
+        public static string CorrectStringAsNeeded(string textLocationString)
         {
-            if (!string.IsNullOrEmpty(inputString))
+            var returnString = "";
+
+            if (!string.IsNullOrEmpty(textLocationString))
             {
-                return Regex.Replace(inputString, @"\s+", "");
+                returnString = textLocationString.Replace("\\", "/");
+                returnString = returnString.Replace("\"", "");
             }
-            return "";
+
+            return returnString;
         }
     }
 }

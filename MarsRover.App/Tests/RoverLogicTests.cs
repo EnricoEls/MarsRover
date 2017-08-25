@@ -48,6 +48,24 @@ namespace MarsRover.App.Tests
             Assert.That(roverLogic.D, Is.EqualTo("E"));
         }
 
+        [TestCase("8 8", "9 8 N", "M", false)]
+        [TestCase("8 8", "8 8 N", "M", true)]
+        [TestCase("8 8", "8 0 S", "M", true)]
+        [TestCase("8 8", "8 -1 S", "M", false)]
+        public void Given_PositionOutOfGrid_ShouldReturnStatementAndExitLocation(string grid, string position, string movements, bool expected)
+        {
+            var listOfInstructions = new List<string> {
+                grid,
+                position,
+                movements,
+            };
+
+            var roverLogic = new RoverLogic(listOfInstructions);
+            var result = roverLogic.IsInBounds();
+
+            Assert.That(result,Is.EqualTo(expected));
+        }
+
         [Test]
         public void Given_MovementCommandThatGoesOutOfBounds_ShouldReturnFalse()
         {
@@ -58,8 +76,24 @@ namespace MarsRover.App.Tests
             };
 
             var roverLogic = new RoverLogic(listOfInstructions);
-            roverLogic.ExecuteMovementCommand("M");
-            
+            var result = roverLogic.Execute();
+            Assert.That(result, Is.EqualTo("Rover moved out of grid at point 8 8 \n End position 8 9 N"));
+        }
+
+        [Test]
+        public void Given_UnknownInstuction_ShouldReturnUnknownInstructions()
+        {
+            var listOfInstructions = new List<string> {
+                "8 8",
+                "1 2 E",
+                "MMLMFMMRRMML",
+            };
+
+            var roverLogic = new RoverLogic(listOfInstructions);
+            var result = roverLogic.Execute();
+
+            Assert.That(roverLogic.UnknownInstructions.Count, Is.EqualTo(1));
+            Assert.That(roverLogic.UnknownInstructions[0], Is.EqualTo("F"));
         }
 
         [Test]
@@ -72,8 +106,9 @@ namespace MarsRover.App.Tests
             };
 
             var roverLogic = new RoverLogic(listOfInstructions);
+            var result = roverLogic.Execute();
 
-            Assert.That(roverLogic.Execute, Is.EqualTo("3 3 S"));
+            Assert.That(result, Is.EqualTo("3 3 S"));
         }
     }
 }
