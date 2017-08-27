@@ -5,6 +5,9 @@
 <br/>
 
 ### Program overview
+A rover has been sent to Mars to survey the terrain. Mars’s surface has been divided into zones and each zone have been very carefully surveyed ahead of time and are deemed safe for exploration. Due to the transmission delay in communicating with the rover on Mars, you are only able to send the rover a list of commands.
+
+This program will upload the commands and the rover will execute them.
 
 ### How it works
 The application will ask you to upload a text file that contains instructions for the rover to prosess.
